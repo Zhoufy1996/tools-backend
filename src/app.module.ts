@@ -17,6 +17,8 @@ import { readConfig } from './core/utils/config';
 
 const dbConfig = readConfig();
 
+console.log(dbConfig);
+
 @Module({
   imports: [
     ServeStaticModule.forRoot({
