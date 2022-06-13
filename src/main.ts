@@ -9,7 +9,7 @@ import { readConfig } from './core/utils/config';
 declare const module: any;
 
 const httpsOptions = {
-  key: fs.readFileSync(path.join(process.cwd(), 'privkey.pem'), 'utf8'),
+  key: fs.readFileSync(path.join(process.cwd(), 'server.key'), 'utf8'),
   cert: fs.readFileSync(path.join(process.cwd(), 'server.crt'), 'utf8'),
 };
 const config = readConfig();
