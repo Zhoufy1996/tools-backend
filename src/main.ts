@@ -9,11 +9,10 @@ import { readConfig } from './core/utils/config';
 declare const module: any;
 
 const httpsOptions = {
-  key: fs.readFileSync(path.join(process.cwd(), 'key.pem'), 'utf8'),
+  key: fs.readFileSync(path.join(process.cwd(), 'privkey.pem'), 'utf8'),
   cert: fs.readFileSync(path.join(process.cwd(), 'server.crt'), 'utf8'),
 };
 const config = readConfig();
-
 async function bootstrap() {
   const app = await NestFactory.create(
     AppModule,
@@ -24,8 +23,12 @@ async function bootstrap() {
         },
   );
   app.use(helmet());
+  console.log(config.origin);
   app.enableCors({
     origin: config.origin,
+    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    // preflightContinue: false,
+    // optionsSuccessStatus: 204,
   });
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
