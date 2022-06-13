@@ -40,3 +40,7 @@ src/qqbot/config.json
 
 files/**.png
 config.json
+
+csr.pem
+key.pem
+server.crt

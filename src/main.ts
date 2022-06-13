@@ -2,14 +2,27 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
+import * as fs from 'fs';
+import * as path from 'path';
 import { readConfig } from './core/utils/config';
 
 declare const module: any;
 
+const httpsOptions = {
+  key: fs.readFileSync(path.join(process.cwd(), 'key.pem'), 'utf8'),
+  cert: fs.readFileSync(path.join(process.cwd(), 'server.crt'), 'utf8'),
+};
 const config = readConfig();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(
+    AppModule,
+    config.env === 'development'
+      ? {}
+      : {
+          httpsOptions,
+        },
+  );
   app.use(helmet());
   app.enableCors({
     origin: config.origin,

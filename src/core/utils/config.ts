@@ -9,6 +9,7 @@ interface Config {
   port: number;
   database: string;
   origin: string[];
+  env: 'development' | 'production';
 }
 
 export const readConfig = (): Config => {
