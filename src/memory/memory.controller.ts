@@ -20,7 +20,9 @@ export class MemoryController {
       throw new BadRequestException('生成失败');
     }
 
-    return code;
+    return {
+      code,
+    };
   }
 
   @Post('findOne')
