@@ -32,7 +32,6 @@ export class MemoryService {
         code = memory.code;
       } catch (e) {
         time += 1;
-        console.log(e);
       }
     }
 

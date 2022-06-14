@@ -1,11 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class CreateOneDto {
+export class CreateMemoryDto {
   @IsString()
   content: string;
-}
-
-export class findOneDto {
-  @IsString()
-  code: string;
 }

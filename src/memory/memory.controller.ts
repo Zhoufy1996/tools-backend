@@ -3,18 +3,19 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
 } from '@nestjs/common';
-import { CreateOneDto, findOneDto } from './memory.dto';
+import { CreateMemoryDto } from './memory.dto';
 import { MemoryService } from './memory.service';
 
 @Controller('memory')
 export class MemoryController {
   constructor(private memoryService: MemoryService) {}
 
-  @Post('createOne')
-  async createOne(@Body() body: CreateOneDto) {
-    const code = await this.memoryService.createOne(body.content);
+  @Post()
+  async create(@Body() createMemoryDto: CreateMemoryDto) {
+    const code = await this.memoryService.createOne(createMemoryDto.content);
 
     if (code === '') {
       throw new BadRequestException('生成失败');
@@ -25,9 +26,9 @@ export class MemoryController {
     };
   }
 
-  @Post('findOne')
-  async findOne(@Body() body: findOneDto) {
-    const result = await this.memoryService.findOneByCode(body.code);
+  @Get(':code')
+  async findOne(@Param('code') code: string) {
+    const result = await this.memoryService.findOneByCode(code);
 
     if (result == null) {
       throw new BadRequestException('未找到相应内容');
